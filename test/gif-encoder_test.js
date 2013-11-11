@@ -1,31 +1,36 @@
+var assert = require('assert');
 var fs = require('fs');
 var GifEncoder = require('../lib/GIFEncoder.js');
 
-describe('GifEncoder', function () {
+describe('GifEncoder encoding a checkerboard', function () {
   before(function () {
-    this.gif = new GifEncoder(10, 10);
+    var gif = new GifEncoder(10, 10);
+    var pixels = require('./test-files/checkerboard-pixels.json');
+    gif.writeHeader();
+    gif.addFrame(pixels);
+    gif.finish();
+
+    // Save gif for later
+    this.gif = gif;
   });
 
-  describe('encoding a checkboard', function () {
-    before(function () {
-      var pixels = require('./test-files/checkboard-pixels.json');
-      this.gif.writeHeader();
-      this.gif.addFrame(pixels);
-      this.gif.finish();
-    });
+  it('generates the expected bytes', function () {
+    // TODO: Output canvas to a file, perceptual diff GIF to canvas output =3
+    // Grab the expected content
+    var expectedBytes = fs.readFileSync(__dirname + '/expected-files/checkerboard.gif');
 
-    it('generates the expected bytes', function () {
-      // TODO: Output bytes to file
-      // TODO: Output canvas to a file, perceptual diff GIF to canvas output =3
-      // var expectedBytes = fs.readFileSync(__dirname + '/expected-files/checkerboard.gif');
-      var page = this.gif.out.pages[0];
-      var actualBytes = new Buffer([].slice.call(page));
+    // Grab the actual content
+    var page = this.gif.out.pages[0];
+    var actualBytes = new Buffer([].slice.call(page));
 
-      // DEV: Write out actual file to expected file
-      if (true) {
-        try { fs.mkdirSync(__dirname + '/actual-files'); } catch (e) {}
-        fs.writeFileSync(__dirname + '/actual-files/checkboard.gif', actualBytes);
-      }
-    });
+    // Assert the expected matches the actual content
+    assert.strictEqual(expectedBytes, actualBytes);
+
+    // DEV: Write out actual file to expected file
+    // if (true) {
+    if (false) {
+      try { fs.mkdirSync(__dirname + '/actual-files'); } catch (e) {}
+      fs.writeFileSync(__dirname + '/actual-files/checkerboard.gif', actualBytes);
+    }
   });
 });
