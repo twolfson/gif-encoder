@@ -1,3 +1,4 @@
+var fs = require('fs');
 var GifEncoder = require('../lib/GIFEncoder.js');
 
 describe('GifEncoder', function () {
@@ -8,13 +9,23 @@ describe('GifEncoder', function () {
   describe('encoding a checkboard', function () {
     before(function () {
       var pixels = require('./test-files/checkboard-pixels.json');
+      this.gif.writeHeader();
       this.gif.addFrame(pixels);
+      this.gif.finish();
     });
 
     it('generates the expected bytes', function () {
       // TODO: Output bytes to file
-      // var expectedBytes = require('./expected-files/checkboard.gif');
-      console.log(this.gif.out);
+      // TODO: Output canvas to a file, perceptual diff GIF to canvas output =3
+      // var expectedBytes = fs.readFileSync(__dirname + '/expected-files/checkerboard.gif');
+      var page = this.gif.out.pages[0];
+      var actualBytes = new Buffer([].slice.call(page));
+
+      // DEV: Write out actual file to expected file
+      if (true) {
+        try { fs.mkdirSync(__dirname + '/actual-files'); } catch (e) {}
+        fs.writeFileSync(__dirname + '/actual-files/checkboard.gif', actualBytes);
+      }
     });
   });
 });
