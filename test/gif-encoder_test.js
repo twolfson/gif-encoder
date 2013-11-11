@@ -30,6 +30,6 @@ describe('GifEncoder encoding a checkerboard', function () {
     }
 
     // Assert the expected matches the actual content
-    assert.strictEqual(expectedBytes, actualBytes);
+    assert.deepEqual(expectedBytes, actualBytes);
   });
 });
