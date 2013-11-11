@@ -28,7 +28,9 @@
   "scripts": {
     "test": "mocha"
   },
-  "dependencies": {},
+  "dependencies": {
+    "readable-stream": "~1.1.9"
+  },
   "devDependencies": {
     "mocha": "~1.11.0",
     "grunt": "~0.4.1",
