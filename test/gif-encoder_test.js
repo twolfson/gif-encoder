@@ -23,14 +23,13 @@ describe('GifEncoder encoding a checkerboard', function () {
     var page = this.gif.out.pages[0];
     var actualBytes = new Buffer([].slice.call(page));
 
-    // Assert the expected matches the actual content
-    assert.strictEqual(expectedBytes, actualBytes);
-
     // DEV: Write out actual file to expected file
-    // if (true) {
-    if (false) {
+    if (process.env.DEBUG_TEST) {
       try { fs.mkdirSync(__dirname + '/actual-files'); } catch (e) {}
       fs.writeFileSync(__dirname + '/actual-files/checkerboard.gif', actualBytes);
     }
+
+    // Assert the expected matches the actual content
+    assert.strictEqual(expectedBytes, actualBytes);
   });
 });
