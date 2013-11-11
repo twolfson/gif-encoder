@@ -1,4 +1,4 @@
-# gif-encoder
+# gif-encoder [![Build status](https://travis-ci.org/twolfson/gif-encoder.png?branch=master)](https://travis-ci.org/twolfson/gif-encoder)
 
 Streaming GIF encoder
 
