@@ -20,14 +20,23 @@ var gif = new GifEncoder(10, 10);
 // This can be collected from a <canvas> via context.getImageData(0, 0, width, height).data
 var pixels = [0, 0, 0, 255, /*...*/];
 
-// Write out the image into memory
-gif.writeHader();
-gif.addFrame(pixels);
-// Write subsequent rgba arrays for more frames
-gif.finish();
+process.nextTick(function () {
+  // Write out the image into memory
+  gif.writeHader();
+  gif.addFrame(pixels);
+  // Write subsequent rgba arrays for more frames
+  gif.finish();
+});
 
-// 4096 arrays of bytes is available at
-gif.out.pages
+// Collect output
+var data = [];
+gif.on('data', function (val) {
+  data.push(val);
+});
+gif.on('end', function () {
+  // Data is an array of numeric byte values for the GIF
+  done();
+});
 ```
 
 ## Documentation
