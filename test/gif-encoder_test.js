@@ -3,7 +3,7 @@ var GifEncoder = require('../lib/GIFEncoder.js');
 
 describe('GifEncoder', function () {
   before(function () {
-    this.gif = new GifEncoder();
+    this.gif = new GifEncoder(10, 10);
   });
 
   describe('encoding a checkboard', function () {
