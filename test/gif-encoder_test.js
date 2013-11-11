@@ -9,14 +9,12 @@ describe('GifEncoder encoding a checkerboard', function () {
     var gif = new GifEncoder(10, 10);
 
     // Collect output
-    var data = [];
-    this.data = data;
+    var buffers = [];
+    this.buffers = buffers;
     gif.on('data', function (val) {
-      data.push(val);
+      buffers.push(val);
     });
-    gif.on('end', function () {
-      done();
-    });
+    gif.on('end', done);
 
     // Write content
     var pixels = require('./test-files/checkerboard-pixels.json');
@@ -34,7 +32,7 @@ describe('GifEncoder encoding a checkerboard', function () {
     var expectedBytes = fs.readFileSync(__dirname + '/expected-files/checkerboard.gif');
 
     // Grab the actual content
-    var actualBytes = new Buffer(this.data);
+    var actualBytes = Buffer.concat(this.buffers);
 
     // DEV: Write out actual file to expected file
     if (process.env.DEBUG_TEST) {
