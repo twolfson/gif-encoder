@@ -1,17 +1,39 @@
 # gif-encoder [![Build status](https://travis-ci.org/twolfson/gif-encoder.png?branch=master)](https://travis-ci.org/twolfson/gif-encoder)
 
-Streaming GIF encoder
+Streaming [GIF][] encoder
+
+[GIF]: http://en.wikipedia.org/wiki/Graphics_Interchange_Format
+
+This is built as part of the [gifsockets][] project.
+
+[gifsockets]: https://github.com/twolfson/gifsockets-server
 
 ## Getting Started
 Install the module with: `npm install gif-encoder`
 
-```javascript
-var gif_encoder = require('gif-encoder');
-gif_encoder.awesome(); // "awesome"
+```js
+// Create a 10 x 10 gif
+var GifEncoder = require('gif-encoder');
+var gif = new GifEncoder(10, 10);
+
+// using an rgba array of pixels [r, g, b, a, ... continues on for every pixel]
+// This can be collected from a <canvas> via context.getImageData(0, 0, width, height).data
+var pixels = [0, 0, 0, 255, /*...*/];
+
+// Write out the image into memory
+gif.writeHader();
+gif.addFrame(pixels);
+// Write subsequent rgba arrays for more frames
+gif.finish();
+
+// 4096 arrays of bytes is available at
+gif.out.pages
 ```
 
 ## Documentation
 _(Coming soon)_
+
+// TODO: Document methods, events, and options
 
 ## Examples
 _(Coming soon)_
