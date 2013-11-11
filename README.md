@@ -18,7 +18,7 @@ var gif = new GifEncoder(10, 10);
 
 // using an rgba array of pixels [r, g, b, a, ... continues on for every pixel]
 // This can be collected from a <canvas> via context.getImageData(0, 0, width, height).data
-var pixels = [0, 0, 0, 255, /*...*/];
+var pixels = [0, 0, 0, 255/*, ...*/];
 
 process.nextTick(function () {
   // Write out the image into memory
@@ -29,14 +29,8 @@ process.nextTick(function () {
 });
 
 // Collect output
-var data = [];
-gif.on('data', function (val) {
-  data.push(val);
-});
-gif.on('end', function () {
-  // Data is an array of numeric byte values for the GIF
-  done();
-});
+var file = require('fs').createReadStream('img.gif');
+gif.pipe(file);
 ```
 
 ## Documentation
