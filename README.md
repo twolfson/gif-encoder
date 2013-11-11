@@ -4,7 +4,7 @@ Streaming [GIF][] encoder
 
 [GIF]: http://en.wikipedia.org/wiki/Graphics_Interchange_Format
 
-This is built as part of the [gifsockets][] project.
+This is built as part of the [gifsockets][] project. It is forked from [gif.js][] to allow for a streaming API and performance optimization.
 
 [gifsockets]: https://github.com/twolfson/gifsockets-server
 
