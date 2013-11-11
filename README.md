@@ -30,6 +30,7 @@ process.nextTick(function () {
 
 // Collect output
 var file = require('fs').createReadStream('img.gif');
+// TODO: Coming soon, for now look at 'data' and 'end' events
 gif.pipe(file);
 ```
 
