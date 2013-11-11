@@ -1,0 +1,22 @@
+{
+  "name": "gif.js",
+  "version": "0.0.1",
+  "description": "JavaScript GIF encoding library",
+  "author": "Johan Nordberg <code@johan-nordberg.com>",
+  "main": "index.js",
+  "repository": "",
+  "devDependencies": {
+    "commonjs-everywhere": ">=0.7.2"
+  },
+  "scripts": {
+    "prepublish": "./bin/build"
+  },
+  "keywords": [
+    "gif",
+    "animation",
+    "encoder"
+  ],
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "private": true
+}
