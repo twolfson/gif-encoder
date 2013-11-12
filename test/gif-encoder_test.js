@@ -39,8 +39,28 @@ describe('GifEncoder encoding a checkerboard', function () {
   });
 });
 
-describe.skip('GifEncoder encoding a multi-framed checkerboard', function () {
-  it('generated the expected bytes', function () {
+describe('GifEncoder encoding a multi-framed checkerboard', function () {
+  createGif(10, 10);
+  before(function () {
+    this.gif.writeHeader();
+    this.gif.setDelay(500);
+    this.gif.setRepeat(0);
+    this.gif.addFrame(checkerboardPixels);
+    this.gif.addFrame(require('./test-files/inverse-checkerboard-pixels.json'));
+    this.gif.finish();
+  });
+  before(function (done) {
+    this.gif.once('readable', done);
+  });
+
+  it('generates the expected bytes', function () {
+    var expectedBytes = fs.readFileSync(__dirname + '/expected-files/alternating-checkerboard.gif');
+    var actualBytes = this.gif.read();
+    if (process.env.DEBUG_TEST) {
+      try { fs.mkdirSync(__dirname + '/actual-files'); } catch (e) {}
+      fs.writeFileSync(__dirname + '/actual-files/alternating-checkerboard.gif', actualBytes);
+    }
+    assert.deepEqual(expectedBytes, actualBytes);
   });
 });
 
