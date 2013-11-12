@@ -8,15 +8,13 @@ var gif = new GifEncoder(10, 10);
 // var pixels = [0, 0, 0, 255/*, ...*/];  // #DEVONLY
 var pixels = require('../test/test-files/checkerboard-pixels.json');
 
-process.nextTick(function () {
-  // Write out the image into memory
-  gif.writeHeader();
-  gif.addFrame(pixels);
-  // Write subsequent rgba arrays for more frames
-  gif.finish();
-});
-
 // Collect output
 var file = require('fs').createWriteStream(__dirname + '/img.gif');  // #DEVONLY
 // var file = require('fs').createWriteStream('img.gif');  // #DEVONLY
 gif.pipe(file);
+
+// Write out the image into memory
+gif.writeHeader();
+gif.addFrame(pixels);
+// gif.addFrame(pixels); // Write subsequent rgba arrays for more frames
+gif.finish();
