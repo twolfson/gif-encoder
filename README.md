@@ -69,9 +69,9 @@ gif.on('readable', function () {
 
 `error` - Emits an `Error` when internal buffer is exceeded. This occurs when you do not `read` (either via `.on('data')` or `.read()`) and we cannot flush prepared data.
 
-> If you have a very large GIF, you can update [`options.highWaterMark`][].
+> If you have a very large GIF, you can update [`options.highWaterMark`][Constructor] via the [Constructor][].
 
-[`options.highWaterMark`]: #constructor
+[Constructor]: #constructor
 
 `readable` - Emits when the stream is ready to be `.read()` from.
 
