@@ -32,7 +32,7 @@ gif.finish();
 ```
 
 ## Documentation
-`gif-encoder` exports a constructor function which extends `readable-stream@~1.1.9`. This means you can use any `streams1`/`streams2` functionality. I will re-iterate what this means below.
+`gif-encoder` exports `GifEncoder`, a constructor function which extends `readable-stream@~1.1.9`. This means you can use any `streams1`/`streams2` functionality. I will re-iterate what this means below.
 
 ```js
 // streams1
@@ -51,9 +51,7 @@ gif.on('readable', function () {
 Constructor for a new `GifEncoder`
 
 - width `Number` - Width, in pixels, of the `GIF` to output
-
 - height `Number` - Height, in pixels, of the `GIF` to output
-
 - options `Object` - Optional container for any options
     - options.highWaterMark `Number` - Number, in bytes, to store in internal buffer. Defaults to 64kB.
 
@@ -89,47 +87,59 @@ Emits when the stream is ready to be `.read()` from.
 
 Emits when at the start and end of `.writeHeader()`.
 
-### Event: `frame#start/stop`
+#### Event: `frame#start/stop`
 `function () {}`
 
 Emits when at the start and end of `.addFrame()`
 
-### Event: `finish#start/stop`
+#### Event: `finish#start/stop`
 `function () {}`
 
 Emits when at the start and end of `.finish()`
 
-### `gif.setDelay(ms)`
+#### `gif.setDelay(ms)`
 Set milliseconds to wait between frames
 
-**Parameter:** `options.highWaterMark` - `Number` - Number, in bytes, to store in internal buffer. Defaults to 64kB.
+- ms `Number` - Amount of milliseconds to delay between frames
 
+#### `setFrameRate(framesPerSecond)`
+Set delay based on amount of frames per second. Cannot be used with `gif.setDelay`.
 
-`setFrameRate(framesPerSecond);` - Sugar method to set delay based on amount of frames per second.
+- framesPerSecond `Number` - Amount of frames per second
 
-`setDispose(disposalCode);` // TODO: Research this more
+#### `setDispose(disposalCode)`
+TODO: Research this more
 
-`setRepeat(n);` - Sets amount of times to repeat `GIF`.
+```js
+/*
+  Sets the GIF frame disposal code for the last added frame and any
+  subsequent frames.
 
-If `n` is -1, play once.
+  Default is 0 if no transparent color has been set, otherwise 2.
+*/
+```
 
-If `n` is 0, loop indefinitely.
+#### `setRepeat(n)`
+Sets amount of times to repeat `GIF`
 
-If `n` is a positive number, loop `n` times.
+- n `Number`
+    - If `n` is -1, play once.
+    - If `n` is 0, loop indefinitely.
+    - If `n` is a positive number, loop `n` times.
 
-`setTransparent(color);` - Define the color which represents transparency in the `GIF`.
+#### `setTransparent(color)`
+Define the color which represents transparency in the `GIF`.
 
-`color` should be a hexadecimal value (e.g. `0x00FF00`).
+- color `Hexadecimal Number` - Color to represent transparent background
+  - Example: `0x00FF00`
 
-`setQuality(quality);` - Set the quality (computational/performance trade-off).
+#### `setQuality(quality)`
+Set the quality (computational/performance trade-off).
 
-`quality` should be a positive number.
-
-1 is best colors, worst performance.
-
-20 is suggested maximum but there is no limit.
-
-10 is the default, provided an even trade-off.
+- quality `Positive number`
+    - 1 is best colors, worst performance.
+    - 20 is suggested maximum but there is no limit.
+    - 10 is the default, provided an even trade-off.
 
 #### Input/output
 read([size]);
