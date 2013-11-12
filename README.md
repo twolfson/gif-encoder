@@ -32,12 +32,74 @@ gif.finish();
 ```
 
 ## Documentation
-_(Coming soon)_
+`gif-encoder` exports a constructor function which extends `readable-stream@1.1.9`. This means you can use any `streams1`/`streams2` functionality. I will re-iterate what this means below.
 
-// TODO: Document methods, events, and options
+```js
+// streams1
+var gif = new GifEncoder(10, 10);
+gif.on('data', console.log);
+gif.on('end', process.exit);
 
-## Examples
-_(Coming soon)_
+// streams2
+var gif = new GifEncoder(10, 10);
+gif.on('readable', function () {
+  console.log(gif.read());
+});
+```
+
+### Constructor
+
+### Events
+`data`
+
+`end`
+
+`error`
+
+`readable`
+
+`writeHeader#start/stop`
+
+`frame#start/stop`
+
+`finish#start/stop`
+
+### Methods
+setDelay(ms); // Milliseconds to wait between frames
+
+setFrameRate(fps); // Sugar method to set delay based on amount of frames per second
+
+setDispose(disposalCode); // TODO: Research this more
+
+setRepeat(repeat); -1: play once, 0: indefinitely, positive number: n times
+
+setTransparent(color);
+
+setQuality(quality);
+
+1 is best colors, worst performance.
+
+20 is suggested maximum but there is no limit.
+
+10 is the default, provided an even trade-off.
+
+addFrame(imageData);
+
+finish();
+
+#### Low-level
+flushData();
+
+writeHeader();
+
+writeImageInfo();
+
+analyzeImage();
+
+outputImage();
+
+// TODO: Make this method.
+setImagePixels();
 
 ## Donating
 Support this project and [others by twolfson][gittip] via [gittip][].
