@@ -1,4 +1,6 @@
 # gif-encoder changelog
+0.4.0 - Broke down `getImagePixels` into `removeAlphaChannel` and `setImagePixels`
+
 0.3.0 - Moved to readable-stream for streams1/streams2 functionality
 
 0.2.0 - Moved to larger chunked data events
