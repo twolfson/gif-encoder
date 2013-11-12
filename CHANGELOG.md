@@ -1,4 +1,6 @@
 # gif-encoder changelog
+0.3.0 - Moved to readable-stream for streams1/streams2 functionality
+
 0.2.0 - Moved to larger chunked data events
 
 0.1.0 - Moved to stream-like API (copied from gifsockets-server#f385006)
