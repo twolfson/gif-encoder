@@ -48,8 +48,15 @@ gif.on('readable', function () {
 ```
 
 ### Constructor
+`new GifEncoder(width, height, options` - Constructor for a new `GifEncoder`
 
-TODO: Width, Height, Options (incl. watermark)
+**Parameter** width - Number - Width, in pixels, of the `GIF` to output
+
+**Parameter** height - Number - Height, in pixels, of the `GIF` to output
+
+**Parameter** options - Object - OPTIONAL - Container for any options
+
+**Parameter** options.highWaterMark - Number - OPTIONAL - Number, in bytes, to store in internal buffer. Defaults to 64kB.
 
 **NEVER CALL `.removeAllListeners()`. NO DATA EVENTS WILL BE ABLE TO EMIT.**
 
@@ -61,6 +68,10 @@ TODO: Width, Height, Options (incl. watermark)
 `end` - Signifies end of the encoding has been reached. This will be emitted once `.finish()` is called.
 
 `error` - Emits an `Error` when internal buffer is exceeded. This occurs when you do not `read` (either via `.on('data')` or `.read()`) and we cannot flush prepared data.
+
+> If you have a very large GIF, you can update [`options.highWaterMark`][].
+
+[`options.highWaterMark`]: #constructor
 
 `readable` - Emits when the stream is ready to be `.read()` from.
 
