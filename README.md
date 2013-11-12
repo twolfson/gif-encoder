@@ -20,18 +20,15 @@ var gif = new GifEncoder(10, 10);
 // This can be collected from a <canvas> via context.getImageData(0, 0, width, height).data
 var pixels = [0, 0, 0, 255/*, ...*/];
 
-process.nextTick(function () {
-  // Write out the image into memory
-  gif.writeHader();
-  gif.addFrame(pixels);
-  // Write subsequent rgba arrays for more frames
-  gif.finish();
-});
-
 // Collect output
-var file = require('fs').createReadStream('img.gif');
-// TODO: Coming soon, for now look at 'data' and 'end' events
+var file = require('fs').createWriteStream('img.gif');
 gif.pipe(file);
+
+// Write out the image into memory
+gif.writeHeader();
+gif.addFrame(pixels);
+// gif.addFrame(pixels); // Write subsequent rgba arrays for more frames
+gif.finish();
 ```
 
 ## Documentation
