@@ -82,17 +82,28 @@ gif.on('readable', function () {
 `finish#start/stop` - Emits when at the start and end of `.finish()`
 
 ### Methods
-setDelay(ms); // Milliseconds to wait between frames
+#### Settings
+`setDelay(ms);` - Set milliseconds to wait between frames
 
-setFrameRate(fps); // Sugar method to set delay based on amount of frames per second
+`setFrameRate(framesPerSecond);` - Sugar method to set delay based on amount of frames per second.
 
-setDispose(disposalCode); // TODO: Research this more
+`setDispose(disposalCode);` // TODO: Research this more
 
-setRepeat(repeat); -1: play once, 0: indefinitely, positive number: n times
+`setRepeat(n);` - Sets amount of times to repeat `GIF`.
 
-setTransparent(color);
+If `n` is -1, play once.
 
-setQuality(quality);
+If `n` is 0, loop indefinitely.
+
+If `n` is a positive number, loop `n` times.
+
+`setTransparent(color);` - Define the color which represents transparency in the `GIF`.
+
+`color` should be a hexadecimal value (e.g. `0x00FF00`).
+
+`setQuality(quality);` - Set the quality (computational/performance trade-off).
+
+`quality` should be a positive number.
 
 1 is best colors, worst performance.
 
@@ -100,6 +111,7 @@ setQuality(quality);
 
 10 is the default, provided an even trade-off.
 
+#### Input/output
 read([size]);
 
 writeHeader();
