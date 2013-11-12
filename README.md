@@ -192,9 +192,9 @@ In either case, it writes out a bunch of bytes about the image (e.g. palette, co
 Third part of `addFrame`; encodes the analyzed/indexed pixels for the GIF format.
 
 #### `setImagePixels(pixels, [options])`
-// TODO: Make this method.
+`// TODO: Make this method.`
 
-*This method has not yet been written* but will be the one to deprecate `getImagePixels`.
+*This method has not yet been written but will be the one to deprecate `getImagePixels`.*
 
 - pixels `Array` - Same as `imageData` from [`addFrame`][]
 - options `Object` - Optional container for flags to alter behavior
