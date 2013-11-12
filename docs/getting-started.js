@@ -10,12 +10,12 @@ var pixels = require('../test/test-files/checkerboard-pixels.json');
 
 process.nextTick(function () {
   // Write out the image into memory
-  gif.writeHader();
+  gif.writeHeader();
   gif.addFrame(pixels);
   // Write subsequent rgba arrays for more frames
   gif.finish();
 });
 
 // Collect output
-var file = require('fs').createReadStream('img.gif');
+var file = require('fs').createWriteStream('img.gif');
 gif.pipe(file);
