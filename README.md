@@ -53,10 +53,11 @@ Constructor for a new `GifEncoder`
 - width `Number` - Width, in pixels, of the `GIF` to output
 - height `Number` - Height, in pixels, of the `GIF` to output
 - options `Object` - Optional container for any options
-    - options.highWaterMark `Number` - Number, in bytes, to store in internal buffer. Defaults to 64kB.
+    - highWaterMark `Number` - Number, in bytes, to store in internal buffer. Defaults to 64kB.
 
 **NEVER CALL `.removeAllListeners()`. NO DATA EVENTS WILL BE ABLE TO EMIT.**
 
+### Events
 #### Event: `data`
 `function (buffer) {}`
 
@@ -97,6 +98,7 @@ Emits when at the start and end of `.addFrame()`
 
 Emits when at the start and end of `.finish()`
 
+### Settings
 #### `gif.setDelay(ms)`
 Set milliseconds to wait between frames
 
@@ -141,27 +143,62 @@ Set the quality (computational/performance trade-off).
     - 20 is suggested maximum but there is no limit.
     - 10 is the default, provided an even trade-off.
 
-#### Input/output
-read([size]);
+### Input/output
+#### `read([size])`
+Read out `size` bytes or until the end of the buffer. This is implemented by `readable-stream`.
 
-writeHeader();
+- size `Number` - Optional number of bytes to read out
 
-addFrame(imageData);
+#### `writeHeader()`
+Write out header bytes. We are following `GIF89a` specification.
 
-finish();
+#### `addFrame(imageData)`
+Write out a new frame to the GIF.
 
-#### Low-level
-flushData();
+- imageData `Array` - Array of pixels for the new frame. It should follow the sequence of `r, g, b, a` and be `4 * height * width` in length.
 
+#### `finish()`
+Write out footer bytes.
 
-writeImageInfo();
+### Low-level
+For performance in [gifsockets][], we needed to open up some lower level methods for fancy tricks. Don't use these unless you know what you are doing.
 
-analyzeImage();
+#### `flushData()`
+We have a secondary internal buffer that collects each byte from `writeByte`. This is to prevent create a new `Buffer` and `data` event for *every* byte of data.
 
-outputImage();
+This method empties the internal buffer and pushes it out to the `stream` buffer for reading.
 
+#### `pixels`
+Internal store for `imageData` passed in by `addFrame`.
+
+#### `analyzeImage(imageData)`
+First part of `addFrame`; saves `imageData` to `this.image`, runs `getImagePixels()`, and runs `analyzePixels()`.
+
+- imageData `Array` - Same as that in [`addFrame`][]
+
+[`addFrame`]: #addframe-imagedata-
+
+#### `getImagePixels()`
+Clones `this.image` into `image.pixels` as a `Uint8Array`. Totally unnecessary and non-performant method which is soon to be deprecated.
+
+#### `writeImageInfo()`
+Second part of `addFrame`; behavior varies on if it is the first frame or following frame.
+
+In either case, it writes out a bunch of bytes about the image (e.g. palette, color tables).
+
+#### `outputImage()`
+Third part of `addFrame`; encodes the analyzed/indexed pixels for the GIF format.
+
+#### `setImagePixels(pixels, [options])`
 // TODO: Make this method.
-setImagePixels();
+
+*This method has not yet been written* but will be the one to deprecate `getImagePixels`.
+
+- pixels `Array` - Same as `imageData` from [`addFrame`][]
+- options `Object` - Optional container for flags to alter behavior
+    - clone `Boolean` - If true (default), clone `pixels` into a `Uint8Array`. If false, save `pixels` directly as `this.pixels`
+        - `GifEncoder` **will** mutate the original data.s
+
 
 ## Donating
 Support this project and [others by twolfson][gittip] via [gittip][].
