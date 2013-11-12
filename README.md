@@ -60,19 +60,19 @@ Constructor for a new `GifEncoder`
 
 **NEVER CALL `.removeAllListeners()`. NO DATA EVENTS WILL BE ABLE TO EMIT.**
 
-### Event: `data`
+#### Event: `data`
 `function (buffer) {}`
 
 Emits a [`Buffer`][] containing either header bytes, frame bytes, or footer bytes.
 
 [`Buffer`]: http://nodejs.org/api/buffer.html
 
-### Event: `end`
+#### Event: `end`
 `function () {}`
 
 Signifies end of the encoding has been reached. This will be emitted once `.finish()` is called.
 
-### Event: `error`
+#### Event: `error`
 `function (error) {}`
 Emits an `Error` when internal buffer is exceeded. This occurs when you do not `read` (either via `.on('data')` or `.read()`) and we cannot flush prepared data.
 
@@ -80,12 +80,12 @@ Emits an `Error` when internal buffer is exceeded. This occurs when you do not `
 
 [Constructor]: #constructor
 
-### Event: `readable`
+#### Event: `readable`
 `function () {}`
 
 Emits when the stream is ready to be `.read()` from.
 
-### Event: `writeHeader#start/stop`
+#### Event: `writeHeader#start/stop`
 `function () {}`
 
 Emits when at the start and end of `.writeHeader()`.
