@@ -32,7 +32,7 @@ gif.finish();
 ```
 
 ## Documentation
-`gif-encoder` exports a constructor function which extends `readable-stream@1.1.9`. This means you can use any `streams1`/`streams2` functionality. I will re-iterate what this means below.
+`gif-encoder` exports a constructor function which extends `readable-stream@~1.1.9`. This means you can use any `streams1`/`streams2` functionality. I will re-iterate what this means below.
 
 ```js
 // streams1
@@ -49,20 +49,26 @@ gif.on('readable', function () {
 
 ### Constructor
 
+TODO: Width, Height, Options (incl. watermark)
+
+**NEVER CALL `.removeAllListeners()`. NO DATA EVENTS WILL BE ABLE TO EMIT.**
+
 ### Events
-`data`
+`data` - Emits a [`Buffer`][] containing either header bytes, frame bytes, or footer bytes.
 
-`end`
+[`Buffer`]: http://nodejs.org/api/buffer.html
 
-`error`
+`end` - Signifies end of the encoding has been reached. This will be emitted once `.finish()` is called.
 
-`readable`
+`error` - Emits an `Error` when internal buffer is exceeded. This occurs when you do not `read` (either via `.on('data')` or `.read()`) and we cannot flush prepared data.
 
-`writeHeader#start/stop`
+`readable` - Emits when the stream is ready to be `.read()` from.
 
-`frame#start/stop`
+`writeHeader#start/stop` - Emits when at the start and end of `.writeHeader()`.
 
-`finish#start/stop`
+`frame#start/stop` - Emits when at the start and end of `.addFrame()`
+
+`finish#start/stop` - Emits when at the start and end of `.finish()`
 
 ### Methods
 setDelay(ms); // Milliseconds to wait between frames
@@ -83,6 +89,10 @@ setQuality(quality);
 
 10 is the default, provided an even trade-off.
 
+read([size]);
+
+writeHeader();
+
 addFrame(imageData);
 
 finish();
@@ -90,7 +100,6 @@ finish();
 #### Low-level
 flushData();
 
-writeHeader();
 
 writeImageInfo();
 
