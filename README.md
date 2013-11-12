@@ -57,6 +57,9 @@ Constructor for a new `GifEncoder`
 
 **NEVER CALL `.removeAllListeners()`. NO DATA EVENTS WILL BE ABLE TO EMIT.**
 
+> We implement the GIF89a specification which can be found at
+> http://www.w3.org/Graphics/GIF/spec-gif89a.txt
+
 ### Events
 #### Event: `data`
 `function (buffer) {}`
@@ -110,16 +113,26 @@ Set delay based on amount of frames per second. Cannot be used with `gif.setDela
 - framesPerSecond `Number` - Amount of frames per second
 
 #### `setDispose(disposalCode)`
-TODO: Research this more
+Set the disposal code
 
-```js
-/*
-  Sets the GIF frame disposal code for the last added frame and any
-  subsequent frames.
+- disposalCode `Number` - Alters behavior of how to render between frames
+    - If no transparent color has been set, defaults to 0.
+    - Otherwise, defaults to 2.
 
-  Default is 0 if no transparent color has been set, otherwise 2.
-*/
 ```
+Values :    0 -   No disposal specified. The decoder is
+                  not required to take any action.
+            1 -   Do not dispose. The graphic is to be left
+                  in place.
+            2 -   Restore to background color. The area used by the
+                  graphic must be restored to the background color.
+            3 -   Restore to previous. The decoder is required to
+                  restore the area overwritten by the graphic with
+                  what was there prior to rendering the graphic.
+         4-7 -    To be defined.
+```
+
+Taken from http://www.w3.org/Graphics/GIF/spec-gif89a.txt
 
 #### `setRepeat(n)`
 Sets amount of times to repeat `GIF`
