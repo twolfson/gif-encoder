@@ -189,14 +189,22 @@ This method empties the internal buffer and pushes it out to the `stream` buffer
 Internal store for `imageData` passed in by `addFrame`.
 
 #### `analyzeImage(imageData)`
-First part of `addFrame`; saves `imageData` to `this.image`, runs `getImagePixels()`, and runs `analyzePixels()`.
+First part of `addFrame`; runs `setImagePixels(removeAlphaChannel(imageData))` and runs `analyzePixels()`.
 
 - imageData `Array` - Same as that in [`addFrame`][]
 
 [`addFrame`]: #addframeimagedata
 
-#### `getImagePixels()`
-Clones `this.image` into `image.pixels` as a `Uint8Array`. Totally unnecessary and non-performant method which is soon to be deprecated.
+#### `removeAlphaChannel(imageData)`
+Reduces `imageData` into a `Uint8Array` of length `3 * width * height` containing sequences of `r, g, b`; removing the alpha channel.
+
+- imageData `Array` - Same as that in [`addFrame`][]; array containing `r, g, b, a` sequences.
+
+#### `setImagePixels(pixels)`
+Save `pixels` as `this.pixels` for image analysis.
+
+- pixels `Array` - Same as `imageData` from [`addFrame`][]
+    - **`GifEncoder` will mutate the original data.**
 
 #### `writeImageInfo()`
 Second part of `addFrame`; behavior varies on if it is the first frame or following frame.
@@ -205,17 +213,6 @@ In either case, it writes out a bunch of bytes about the image (e.g. palette, co
 
 #### `outputImage()`
 Third part of `addFrame`; encodes the analyzed/indexed pixels for the GIF format.
-
-#### `setImagePixels(pixels, [options])`
-`// TODO: Make this method.`
-
-*This method has not yet been written but will be the one to deprecate `getImagePixels`.*
-
-- pixels `Array` - Same as `imageData` from [`addFrame`][]
-- options `Object` - Optional container for flags to alter behavior
-    - clone `Boolean` - If true (default), clone `pixels` into a `Uint8Array`. If false, save `pixels` directly as `this.pixels`
-        - **`GifEncoder` will mutate the original data.**
-
 
 ## Donating
 Support this project and [others by twolfson][gittip] via [gittip][].
