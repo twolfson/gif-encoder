@@ -58,6 +58,7 @@ Constructor for a new `GifEncoder`
 **NEVER CALL `.removeAllListeners()`. NO DATA EVENTS WILL BE ABLE TO EMIT.**
 
 > We implement the GIF89a specification which can be found at
+>
 > http://www.w3.org/Graphics/GIF/spec-gif89a.txt
 
 ### Events
