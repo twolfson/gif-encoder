@@ -199,7 +199,7 @@ Third part of `addFrame`; encodes the analyzed/indexed pixels for the GIF format
 - pixels `Array` - Same as `imageData` from [`addFrame`][]
 - options `Object` - Optional container for flags to alter behavior
     - clone `Boolean` - If true (default), clone `pixels` into a `Uint8Array`. If false, save `pixels` directly as `this.pixels`
-        - `GifEncoder` **will** mutate the original data.s
+        - **`GifEncoder` will mutate the original data.**
 
 
 ## Donating
