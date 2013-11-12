@@ -50,13 +50,13 @@ gif.on('readable', function () {
 ### Constructor
 `new GifEncoder(width, height, options` - Constructor for a new `GifEncoder`
 
-**Parameter** width - Number - Width, in pixels, of the `GIF` to output
+**Parameter:** `width` - `Number` - Width, in pixels, of the `GIF` to output
 
-**Parameter** height - Number - Height, in pixels, of the `GIF` to output
+**Parameter:** `height` - `Number` - Height, in pixels, of the `GIF` to output
 
-**Parameter** options - Object - OPTIONAL - Container for any options
+**Parameter:** `options` - `Object` - Optional container for any options
 
-**Parameter** options.highWaterMark - Number - OPTIONAL - Number, in bytes, to store in internal buffer. Defaults to 64kB.
+**Parameter:** `options.highWaterMark` - `Number` - Number, in bytes, to store in internal buffer. Defaults to 64kB.
 
 **NEVER CALL `.removeAllListeners()`. NO DATA EVENTS WILL BE ABLE TO EMIT.**
 
