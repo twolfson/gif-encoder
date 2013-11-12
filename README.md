@@ -161,7 +161,9 @@ Write out a new frame to the GIF.
 Write out footer bytes.
 
 ### Low-level
-For performance in [gifsockets][], we needed to open up some lower level methods for fancy tricks. Don't use these unless you know what you are doing.
+For performance in [gifsockets][], we needed to open up some lower level methods for fancy tricks.
+
+**Don't use these unless you know what you are doing.**
 
 #### `flushData()`
 We have a secondary internal buffer that collects each byte from `writeByte`. This is to prevent create a new `Buffer` and `data` event for *every* byte of data.
@@ -176,7 +178,7 @@ First part of `addFrame`; saves `imageData` to `this.image`, runs `getImagePixel
 
 - imageData `Array` - Same as that in [`addFrame`][]
 
-[`addFrame`]: #addframe-imagedata-
+[`addFrame`]: #addframeimagedata
 
 #### `getImagePixels()`
 Clones `this.image` into `image.pixels` as a `Uint8Array`. Totally unnecessary and non-performant method which is soon to be deprecated.
