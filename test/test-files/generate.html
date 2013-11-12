@@ -29,11 +29,13 @@
       // +----+
 
       // Draw black background
-      context.fillStyle = '#000000';
+      var BACKGROUND = '#000000';
+      var FOREGROUND = '#FFFFFF';
+      context.fillStyle = BACKGROUND;
       context.fillRect(0, 0, WIDTH, HEIGHT);
 
       // Draw white squares
-      context.fillStyle = '#FFFFFF';
+      context.fillStyle = FOREGROUND;
       context.fillRect(0, 0, WIDTH / 2, HEIGHT / 2);
       context.fillRect(WIDTH / 2, HEIGHT / 2, WIDTH / 2, HEIGHT / 2);
 
