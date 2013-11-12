@@ -47,8 +47,8 @@ gif.on('readable', function () {
 });
 ```
 
-### Constructor
-`new GifEncoder(width, height, options` - Constructor for a new `GifEncoder`
+### `new GifEncoder(width, height, [options])`
+Constructor for a new `GifEncoder`
 
 **Parameter:** `width` - `Number` - Width, in pixels, of the `GIF` to output
 
@@ -60,30 +60,51 @@ gif.on('readable', function () {
 
 **NEVER CALL `.removeAllListeners()`. NO DATA EVENTS WILL BE ABLE TO EMIT.**
 
-### Events
-`data` - Emits a [`Buffer`][] containing either header bytes, frame bytes, or footer bytes.
+### Event: `data`
+`function (buffer) {}`
+
+Emits a [`Buffer`][] containing either header bytes, frame bytes, or footer bytes.
 
 [`Buffer`]: http://nodejs.org/api/buffer.html
 
-`end` - Signifies end of the encoding has been reached. This will be emitted once `.finish()` is called.
+### Event: `end`
+`function () {}`
 
-`error` - Emits an `Error` when internal buffer is exceeded. This occurs when you do not `read` (either via `.on('data')` or `.read()`) and we cannot flush prepared data.
+Signifies end of the encoding has been reached. This will be emitted once `.finish()` is called.
+
+### Event: `error`
+`function (error) {}`
+Emits an `Error` when internal buffer is exceeded. This occurs when you do not `read` (either via `.on('data')` or `.read()`) and we cannot flush prepared data.
 
 > If you have a very large GIF, you can update [`options.highWaterMark`][Constructor] via the [Constructor][].
 
 [Constructor]: #constructor
 
-`readable` - Emits when the stream is ready to be `.read()` from.
+### Event: `readable`
+`function () {}`
 
-`writeHeader#start/stop` - Emits when at the start and end of `.writeHeader()`.
+Emits when the stream is ready to be `.read()` from.
 
-`frame#start/stop` - Emits when at the start and end of `.addFrame()`
+### Event: `writeHeader#start/stop`
+`function () {}`
 
-`finish#start/stop` - Emits when at the start and end of `.finish()`
+Emits when at the start and end of `.writeHeader()`.
 
-### Methods
-#### Settings
-`setDelay(ms);` - Set milliseconds to wait between frames
+### Event: `frame#start/stop`
+`function () {}`
+
+Emits when at the start and end of `.addFrame()`
+
+### Event: `finish#start/stop`
+`function () {}`
+
+Emits when at the start and end of `.finish()`
+
+### `gif.setDelay(ms)`
+Set milliseconds to wait between frames
+
+**Parameter:** `options.highWaterMark` - `Number` - Number, in bytes, to store in internal buffer. Defaults to 64kB.
+
 
 `setFrameRate(framesPerSecond);` - Sugar method to set delay based on amount of frames per second.
 
