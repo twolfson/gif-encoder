@@ -17,5 +17,6 @@ process.nextTick(function () {
 });
 
 // Collect output
-var file = require('fs').createWriteStream('img.gif');
+var file = require('fs').createWriteStream(__dirname + '/img.gif');  // #DEVONLY
+// var file = require('fs').createWriteStream('img.gif');  // #DEVONLY
 gif.pipe(file);
