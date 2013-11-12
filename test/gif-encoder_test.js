@@ -1,10 +1,11 @@
 var assert = require('assert');
 var fs = require('fs');
 
+var async = require('async');
+
 var GifEncoder = require('../lib/GIFEncoder.js');
 var checkerboardPixels = require('./test-files/checkerboard-pixels.json');
 
-// TODO: Test multiple frames
 function createGif(height, width) {
   before(function () {
     this.gif = new GifEncoder(height, width);
@@ -64,7 +65,28 @@ describe('GifEncoder encoding a multi-framed checkerboard', function () {
   });
 });
 
-describe.skip('GifEncoder encoding an overly large, underly read checkerboard', function () {
+describe('GifEncoder encoding an overly large, underly read checkerboard', function () {
+  createGif(10, 10);
+  before(function (done) {
+    var that = this;
+    this.gif.writeHeader();
+    this.gif.on('error', function saveError (err) {
+      that.error = err;
+    });
+
+    // Write out a new frame until we encounter an error
+    // DEV: This is async so mocha can time us out
+    async.until(function errorHasOccurred () {
+      return that.error;
+    }, function addNewFrame(cb) {
+      process.nextTick(function () {
+        that.gif.addFrame(checkerboardPixels);
+        cb();
+      });
+    }, done);
+  });
+
   it('emits an error', function () {
+    assert.notEqual(this.error, undefined);
   });
 });
