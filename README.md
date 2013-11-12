@@ -76,6 +76,7 @@ Signifies end of the encoding has been reached. This will be emitted once `.fini
 
 #### Event: `error`
 `function (error) {}`
+
 Emits an `Error` when internal buffer is exceeded. This occurs when you do not `read` (either via `.on('data')` or `.read()`) and we cannot flush prepared data.
 
 > If you have a very large GIF, you can update [`options.highWaterMark`][Constructor] via the [Constructor][].
@@ -180,7 +181,7 @@ For performance in [gifsockets][], we needed to open up some lower level methods
 **Don't use these unless you know what you are doing.**
 
 #### `flushData()`
-We have a secondary internal buffer that collects each byte from `writeByte`. This is to prevent create a new `Buffer` and `data` event for *every* byte of data.
+We have a secondary internal buffer that collects each byte from `writeByte`. This is to prevent create a new `Buffer` and `data` event for *every byte of data*.
 
 This method empties the internal buffer and pushes it out to the `stream` buffer for reading.
 
