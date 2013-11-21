@@ -26,6 +26,7 @@ describe('A GifEncoder', function () {
 
     it('can do so efficiently', function () {
       // TODO: Move to frames/second via benchmarkjs?
+      // 13585 for chunked events
       console.log('Medium size x 500 frames', this.totalTime + ' ms');
     });
   });
