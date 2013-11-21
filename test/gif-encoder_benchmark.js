@@ -26,7 +26,7 @@ describe('A GifEncoder', function () {
 
     it('can do so efficiently', function () {
       // TODO: Move to frames/second via benchmarkjs?
-      // 13585 for chunked events
+      // Medium size x 500 frames 13088 ms for frame based buffers
       // Medium size x 500 frames 14245 ms for byte by byte
       // However, there is a process.nextTick overflow with all the events
       console.log('Medium size x 500 frames', this.totalTime + ' ms');

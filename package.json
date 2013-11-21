@@ -26,7 +26,9 @@
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "npm run test-interface && npm run test-performance",
+    "test-interface": "mocha test/gif-encoder_test.js",
+    "test-performance": "mocha test/gif-encoder_benchmark.js"
   },
   "dependencies": {
     "readable-stream": "~1.1.9"
