@@ -8,6 +8,7 @@ describe('A GifEncoder', function () {
       this.gif.writeHeader();
 
       // Pipe output to nowhere
+      // TODO: Do the same for .read()
       this.gif.on('data', function () {});
     });
     imageUtils.load('medium-size.png');
@@ -25,7 +26,7 @@ describe('A GifEncoder', function () {
 
     it('can do so efficiently', function () {
       // TODO: Move to frames/second via benchmarkjs?
-      console.log(this.totalTime);
+      console.log('Medium size x 500 frames', this.totalTime + ' ms');
     });
   });
 });
