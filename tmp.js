@@ -16,6 +16,6 @@ for(var i = 0; i < 10; i++) {
     ctx.fillRect(0,0,100,100);
     ctx.fillStyle = '#000000';
     ctx.fillRect(i*10,40,10,10);
-    encoder.addFrame(ctx);
+    encoder.addFrame(ctx.getImageData(0, 0, 100, 100));
 }
 encoder.finish();
