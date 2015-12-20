@@ -1,6 +1,6 @@
 // https://github.com/twolfson/gif-encoder/issues/5
 var Canvas = require('canvas');
-var GIFEncoder = require('gifencoder');
+var GIFEncoder = require('./');
 var fs = require('fs');
 var canvas = new Canvas(100, 100),
     ctx = canvas.getContext('2d');
