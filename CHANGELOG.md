@@ -1,4 +1,6 @@
 # gif-encoder changelog
+0.5.0 - Dropped Node.js@0.8.0 support and updated Travis CI versions
+
 0.4.3 - Removed global variable leak via @mattbierner in #6
 
 0.4.2 - Added foundry for releases

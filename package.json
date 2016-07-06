@@ -1,7 +1,7 @@
 {
   "name": "gif-encoder",
   "description": "Streaming GIF encoder",
-  "version": "0.4.3",
+  "version": "0.5.0",
   "homepage": "https://github.com/twolfson/gif-encoder",
   "author": {
     "name": "Todd Wolfson",
