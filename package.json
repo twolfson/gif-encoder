@@ -34,16 +34,25 @@
     "readable-stream": "~1.1.9"
   },
   "devDependencies": {
-    "mocha": "~1.11.0",
+    "async": "~0.2.9",
+    "foundry": "~4.3.2",
+    "foundry-release-git": "~2.0.2",
+    "foundry-release-npm": "~2.0.2",
+    "get-pixels": "~1.0.1",
     "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.6.0",
     "grunt-contrib-watch": "~0.4.0",
-    "async": "~0.2.9",
-    "get-pixels": "~1.0.1"
+    "mocha": "~1.11.0"
   },
   "keywords": [
     "gif",
     "encode",
     "encoder"
-  ]
+  ],
+  "foundry": {
+    "releaseCommands": [
+      "foundry-release-git",
+      "foundry-release-npm"
+    ]
+  }
 }
