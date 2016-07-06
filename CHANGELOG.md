@@ -1,4 +1,6 @@
 # gif-encoder changelog
+0.4.2 - Added foundry for releases
+
 0.4.1 - Introducing performance comparison between byte by byte buffers vs frame based buffers.
 
 0.4.0 - Broke down `getImagePixels` into `removeAlphaChannel` and `setImagePixels`
