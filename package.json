@@ -42,7 +42,9 @@
     "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.6.0",
     "grunt-contrib-watch": "~0.4.0",
-    "mocha": "~1.11.0"
+    "mocha": "~1.11.0",
+    "ndarray-fill": "~1.0.1",
+    "zeros": "~1.0.0"
   },
   "keywords": [
     "gif",
