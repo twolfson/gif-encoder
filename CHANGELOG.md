@@ -1,4 +1,6 @@
 # gif-encoder changelog
+0.6.1 - Replaced Gratipay with support me page
+
 0.6.0 - Repaired transparency support via @scinos in #7
 
 0.5.0 - Dropped Node.js@0.8.0 support and updated Travis CI versions
