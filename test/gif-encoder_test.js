@@ -8,9 +8,9 @@ var zeros = require('zeros');
 var GifEncoder = require('../lib/GIFEncoder.js');
 var checkerboardPixels = require('./test-files/checkerboard-pixels.json');
 
-function createGif(height, width) {
+function createGif(height, width, options) {
   before(function () {
-    this.gif = new GifEncoder(height, width);
+    this.gif = new GifEncoder(height, width, options);
   });
 }
 
@@ -147,6 +147,45 @@ describe('GifEncoder encoding a multi-framed image with a transparent background
       try { fs.mkdirSync(__dirname + '/actual-files'); } catch (e) {}
       fs.writeFileSync(__dirname + '/actual-files/moving-dot.gif', actualBytes);
     }
+    assert.deepEqual(expectedBytes, actualBytes);
+  });
+});
+
+describe('GifEncoder encoding a checkerboard from indexed pixels', function () {
+  createGif(10, 10, {
+    palette: [0, 0, 0, 255, 255, 255]
+  });
+  const sz = 10;
+  const indexedPixels = Array(sz*sz).fill(0);
+  for (let y = 0; y < sz; y++) {
+    for (let x = 0; x < sz; x++) {
+      const offs = y*sz + x;
+      const white = Math.floor(y/(sz/2)) ^ Math.floor(x/(sz/2)) ^ 1;
+      indexedPixels[offs + 0] = white;
+    }
+  }
+  before(function () {
+    this.gif.writeHeader();
+    this.gif.addFrame(indexedPixels);
+    this.gif.finish();
+  });
+  before(function (done) {
+    this.gif.once('readable', done);
+  });
+
+  it('generates the expected bytes', function () {
+    // TODO: Output canvas to a file, perceptual diff GIF to canvas output =3
+    // Grab the expected and actual content
+    var expectedBytes = fs.readFileSync(__dirname + '/expected-files/checkerboard-indexed.gif');
+    var actualBytes = this.gif.read();
+
+    // DEV: Write out actual file to expected file
+    if (process.env.DEBUG_TEST) {
+      try { fs.mkdirSync(__dirname + '/actual-files'); } catch (e) {}
+      fs.writeFileSync(__dirname + '/actual-files/checkerboard-indexed.gif', actualBytes);
+    }
+
+    // Assert the expected matches the actual content
     assert.deepEqual(expectedBytes, actualBytes);
   });
 });
