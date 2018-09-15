@@ -167,10 +167,15 @@ Read out `size` bytes or until the end of the buffer. This is implemented by `re
 #### `writeHeader()`
 Write out header bytes. We are following `GIF89a` specification.
 
-#### `addFrame(imageData)`
+#### `addFrame(imageData, options)`
 Write out a new frame to the GIF.
 
 - imageData `Array` - Array of pixels for the new frame. It should follow the sequence of `r, g, b, a` and be `4 * height * width` in length.
+    - If used with the options `palette` and `indexedPixels`, then this becomes the index in the palette (e.g. `0` for `color #0`)
+- options `Object` - Optional container for options
+    - palette `Array` - Array of pixels to use as palette for the frame. It should follow the sequence of `r, g, b, a` and be `4 * height * width` in length.
+        - At the moment, this must be used with `options.indexedPixels`
+    - indexedPixels `Boolean` -  Indicator to treat `imageData` as RGBA values (`false`) or indicies in `palette` (`true`)
 
 #### `finish()`
 Write out footer bytes.
@@ -188,10 +193,12 @@ This method empties the internal buffer and pushes it out to the `stream` buffer
 #### `pixels`
 Internal store for `imageData` passed in by `addFrame`.
 
-#### `analyzeImage(imageData)`
+#### `analyzeImage(imageData, options)`
 First part of `addFrame`; runs `setImagePixels(removeAlphaChannel(imageData))` and runs `analyzePixels()`.
 
 - imageData `Array` - Same as that in [`addFrame`][]
+- options `Object` - Optional container for options
+    - indexedPixels `Boolean` -  Indicator to treat `imageData` as RGBA values (`false`) or indicies in `palette` (`true`)
 
 [`addFrame`]: #addframeimagedata
 
@@ -205,6 +212,11 @@ Save `pixels` as `this.pixels` for image analysis.
 
 - pixels `Array` - Same as `imageData` from [`addFrame`][]
     - **`GifEncoder` will mutate the original data.**
+
+#### `setImagePalette(palette)`
+Save `palette` as `this.userPalette` for frame writing.
+
+- palette `Array` - Same as `options.palette` from [`addFrame`][]
 
 #### `writeImageInfo()`
 Second part of `addFrame`; behavior varies on if it is the first frame or following frame.
