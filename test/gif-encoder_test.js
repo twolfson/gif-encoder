@@ -156,14 +156,18 @@ describe('GifEncoder encoding a checkerboard from indexed pixels', function () {
     palette: [0, 0, 0, 255, 255, 255]
   });
   const sz = 10;
-  const indexedPixels = Array(sz*sz).fill(0);
-  for (let y = 0; y < sz; y++) {
-    for (let x = 0; x < sz; x++) {
-      const offs = y*sz + x;
-      const white = Math.floor(y/(sz/2)) ^ Math.floor(x/(sz/2)) ^ 1;
-      indexedPixels[offs + 0] = white;
-    }
-  }
+  const indexedPixels = [
+    1, 1, 1, 1, 1, 0, 0, 0, 0, 0,
+    1, 1, 1, 1, 1, 0, 0, 0, 0, 0,
+    1, 1, 1, 1, 1, 0, 0, 0, 0, 0,
+    1, 1, 1, 1, 1, 0, 0, 0, 0, 0,
+    1, 1, 1, 1, 1, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 1, 1, 1, 1, 1,
+    0, 0, 0, 0, 0, 1, 1, 1, 1, 1,
+    0, 0, 0, 0, 0, 1, 1, 1, 1, 1,
+    0, 0, 0, 0, 0, 1, 1, 1, 1, 1,
+    0, 0, 0, 0, 0, 1, 1, 1, 1, 1,
+  ];
   before(function () {
     this.gif.writeHeader();
     this.gif.addFrame(indexedPixels);
