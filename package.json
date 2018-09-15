@@ -23,7 +23,7 @@
   ],
   "main": "lib/GIFEncoder",
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">= 6.0.0"
   },
   "scripts": {
     "test": "npm run test-interface && npm run test-performance",
