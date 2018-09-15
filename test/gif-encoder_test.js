@@ -153,7 +153,7 @@ describe('GifEncoder encoding a multi-framed image with a transparent background
 
 describe('GifEncoder encoding a checkerboard from indexed pixels', function () {
   createGif(10, 10, {
-    palette: [0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF]
+    palette: [0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF]
   });
   before(function () {
     this.gif.writeHeader();
