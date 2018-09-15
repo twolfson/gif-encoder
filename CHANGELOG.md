@@ -1,4 +1,6 @@
 # gif-encoder changelog
+0.7.1 - Fixed supported Node.js versions and Travis CI
+
 0.7.0 - Added support for palette and indexed pixels via @nurpax in #15
 
 0.6.1 - Replaced Gratipay with support me page
