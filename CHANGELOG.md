@@ -1,4 +1,6 @@
 # gif-encoder changelog
+0.7.0 - Added support for palette and indexed pixels via @nurpax in #15
+
 0.6.1 - Replaced Gratipay with support me page
 
 0.6.0 - Repaired transparency support via @scinos in #7
