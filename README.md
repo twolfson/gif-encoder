@@ -173,7 +173,7 @@ Write out a new frame to the GIF.
 - imageData `Array` - Array of pixels for the new frame. It should follow the sequence of `r, g, b, a` and be `4 * height * width` in length.
     - If used with the options `palette` and `indexedPixels`, then this becomes the index in the palette (e.g. `0` for `color #0`)
 - options `Object` - Optional container for options
-    - palette `Array` - Array of pixels to use as palette for the frame. It should follow the sequence of `r, g, b, a` and be `4 * height * width` in length.
+    - palette `Array` - Array of pixels to use as palette for the frame. It should follow the sequence of `r, g, b, a`
         - At the moment, this must be used with `options.indexedPixels`
     - indexedPixels `Boolean` -  Indicator to treat `imageData` as RGBA values (`false`) or indicies in `palette` (`true`)
 
